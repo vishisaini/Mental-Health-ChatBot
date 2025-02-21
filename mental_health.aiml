@@ -1,0 +1,49 @@
+<aiml version="1.0.1" encoding="UTF-8">
+  
+  <!-- Casual Chat -->
+  <category>
+    <pattern>HELLO</pattern>
+    <template>Hello! I'm here to listen. How are you today?</template>
+  </category>
+  
+  <category>
+    <pattern>I AM HAPPY</pattern>
+    <template>That's great! What made you happy today?</template>
+  </category>
+
+  <!-- Intermediate Stress -->
+  <category>
+    <pattern>I SCORED BAD</pattern>
+    <template>I'm sorry to hear that. Remember, one bad score doesn't define you. Keep going!</template>
+  </category>
+
+  <category>
+    <pattern>I FAILED</pattern>
+    <template>Failure is just a step towards success. You are strong, and you will improve!</template>
+  </category>
+
+  <!-- Crisis Level -->
+  <category>
+    <pattern>I WANT TO DIE</pattern>
+    <template>
+      I'm really sorry you're feeling this way. 💙 You're not alone, and there are people who care about you.
+      Please talk to a trusted friend, family member, or reach out to a helpline.
+      In India, you can call **Vandrevala Foundation Helpline: 1860 266 2345**.
+    </template>
+  </category>
+
+  <category>
+    <pattern>I FEEL HOPELESS</pattern>
+    <template>
+      I'm here for you. 💙 Please reach out to someone who can help.
+      You are **strong** and **loved**. If you need urgent help, please contact a helpline.
+    </template>
+  </category>
+
+  <!-- Default Response -->
+  <category>
+    <pattern>*</pattern>
+    <template>I'm here to listen. Tell me more.</template>
+  </category>
+
+</aiml>
