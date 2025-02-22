@@ -45,27 +45,13 @@
                 sendMessage();
             };
         }
-        function startVoiceRecognition() {
-    let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = "en-US";
-
-    recognition.onresult = function(event) {
-        let transcript = event.results[0][0].transcript.toLowerCase();
-        document.getElementById("userInput").value = transcript; // Display text in input
-        sendText(); // Automatically send after capturing voice
-    };
-
-    recognition.start();
-}
-
     </script>
 </head>
 <body>
     <h1>Mental Health Chatbot</h1>
     <div id="chatbox"></div>
-
-    <input type="text" id="userInput" placeholder="Type a message...">
-<button onclick="sendText()">Send</button>
-<button onclick="startVoiceRecognition()">🎤 Speak</button>
+    <input type="text" id="user-input" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="startListening()">🎤 Voice Input</button>
 </body>
 </html>
