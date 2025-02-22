@@ -20,37 +20,53 @@
             padding: 20px 0;
         }
 
-        
-    #chatbox {
-        margin: 20px auto;
-        width: 80%;
-        max-width: 800px;
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .fancy {
-            text-align: left;
+        /* Chatbox styling */
+        #chatbox {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
             padding: 20px;
-            margin: 20px;
-            background-color: white;
-            
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        /* User and bot message styles */
+        .user-message {
+            text-align: right;
+            color: blue;
+        }
+
+        .bot-message {
+            text-align: left;
+            color: black;
+        }
+
+        .stress-level {
+            font-weight: bold;
+        }
+
+        /* Input field and buttons */
+        .fancy {
+            text-align: left;
+            padding: 20px;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             --offset: 3px;
-            
-           
-            
             background: rgb(242, 244, 205);
             border-radius: 50px;
             position: relative;
             height: 75px;
-            width: 1200px;
-            max-width: 100%;
+            width: 80%;
+            max-width: 800px;
             overflow: hidden;
         }
-        
+
         /* Conic gradient */
         .fancy::before { 
             content: '';
@@ -63,7 +79,7 @@
             width: 100%;
             animation: rotate 2s linear infinite;
         }
-        
+
         /* Overlay */
         .fancy::after {
             content: '';
@@ -74,33 +90,23 @@
             height: calc(100% - 2 * var(--offset));
             width: calc(100% - 2 * var(--offset));
         }
-        
+
         .fancy input {
             background: transparent;
             color: black;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             position: absolute;
             inset: 0;
             z-index: 10;
-            padding: 1.5rem;
-        }
-        
-        @keyframes rotate {
-            from {
-                transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
-            }
-        
-            to {
-                transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
-            }
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            outline: none;
         }
 
-        input[type="text"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 10px;
-            width: 96%;
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) scale(1.4) rotate(0turn); }
+            to { transform: translate(-50%, -50%) scale(1.4) rotate(1turn); }
         }
 
         button {
@@ -110,24 +116,73 @@
             background-color: #333;
             color: white;
             cursor: pointer;
+            margin: 10px;
         }
 
         button:hover {
             background-color: #555;
         }
 
-        p {
-            margin: 10px 0;
+        /* Journal styling */
+        #journal {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1rem;
+            resize: none;
+        }
     </style>
-    </head>
-    <body>
+</head>
+<body>
+    <h1>Mental Health Chatbot</h1>
+
+    <!-- Chatbox where messages appear -->
+    <div id="chatbox"></div>
+
+    <!-- Input field for user messages -->
+    <div class="fancy">
+        <input type="text" id="user-input" placeholder="Type a message...">
+    </div>
+
+    <!-- Buttons for sending message and voice input -->
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="startListening()">🎤 Voice Input</button>
+
+    <!-- Journal Feature -->
+    <div id="journal">
+        <h2>Daily Journal</h2>
+        <textarea id="journal-entry" placeholder="Write about your day..."></textarea>
+        <button onclick="saveJournal()">Save Entry</button>
+    </div>
+
     <script>
         async function sendMessage() {
-            let userMessage = document.getElementById("user-input").value;
+            let userMessage = document.getElementById("user-input").value.trim();
             if (!userMessage) return;
-            
+
+            let chatbox = document.getElementById("chatbox");
+
+            // Append user message
+            chatbox.innerHTML += `
+                <p class="user-message"><b>You:</b> ${userMessage}</p>
+            `;
+
+            // Clear input field
+            document.getElementById("user-input").value = "";
+
+            // Fetch bot response
             let response = await fetch("/get", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -135,7 +190,7 @@
             });
 
             let data = await response.json();
-            
+
             let stressColor = {
                 "casual": "green",
                 "stress": "orange",
@@ -145,33 +200,45 @@
                 "neutral": "gray"
             };
 
-            document.getElementById("chatbox").innerHTML += `
-                <p><b>You:</b> ${userMessage}</p>
-                <p><b>Bot:</b> ${data.response}</p>
-                <p style="color:${stressColor[data.stress_level]};">Stress Level: ${data.stress_level.toUpperCase()}</p>
+            // Append bot response
+            chatbox.innerHTML += `
+                <p class="bot-message"><b>Bot:</b> ${data.response || "I'm ready to help you"}</p>
+                <p class="stress-level" style="color:${stressColor[data.stress_level] || "gray"};">
+                    <b>Stress Level:</b> ${data.stress_level ? data.stress_level.toUpperCase() : "UNKNOWN"}
+                </p>
             `;
-            document.getElementById("user-input").value = "";
+
+            // Scroll to latest message
+            chatbox.scrollTop = chatbox.scrollHeight;
         }
 
         function startListening() {
             let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = "en-US";
             recognition.start();
-            
+
             recognition.onresult = function(event) {
                 let userMessage = event.results[0][0].transcript;
                 document.getElementById("user-input").value = userMessage;
                 sendMessage();
             };
         }
+
+        function saveJournal() {
+            let entry = document.getElementById("journal-entry").value.trim();
+            if (!entry) return alert("Journal entry cannot be empty!");
+
+            localStorage.setItem("journal", entry);
+            alert("Journal entry saved!");
+        }
+
+        // Load saved journal entry on page load
+        window.onload = function() {
+            let savedEntry = localStorage.getItem("journal");
+            if (savedEntry) {
+                document.getElementById("journal-entry").value = savedEntry;
+            }
+        };
     </script>
-
-
-    <h1>Mental Health Chatbot</h1>
-
-    <div class="fancy"></div>
-    <div id="chatbox"><input type="text"  /></div>
-    <button onclick="sendMessage()">Send</button>
-    <button onclick="startListening()">🎤 Voice Input</button>
 </body>
 </html>
