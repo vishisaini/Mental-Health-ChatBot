@@ -20,14 +20,79 @@
             padding: 20px 0;
         }
 
-        #chatbox {
+        
+    #chatbox {
+        margin: 20px auto;
+        width: 80%;
+        max-width: 800px;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .fancy {
             text-align: left;
             padding: 20px;
             margin: 20px;
             background-color: white;
-            border-radius: 10px;
+            
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             min-height: 300px;
+            --offset: 3px;
+            
+           
+            
+            background: rgb(242, 244, 205);
+            border-radius: 50px;
+            position: relative;
+            height: 75px;
+            width: 1200px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        
+        /* Conic gradient */
+        .fancy::before { 
+            content: '';
+            background: conic-gradient(transparent 270deg, rgb(250, 174, 50), transparent);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            aspect-ratio: 1;
+            width: 100%;
+            animation: rotate 2s linear infinite;
+        }
+        
+        /* Overlay */
+        .fancy::after {
+            content: '';
+            background: inherit;
+            border-radius: inherit;
+            position: absolute;
+            inset: var(--offset);
+            height: calc(100% - 2 * var(--offset));
+            width: calc(100% - 2 * var(--offset));
+        }
+        
+        .fancy input {
+            background: transparent;
+            color: black;
+            font-size: 1.5rem;
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            padding: 1.5rem;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
+            }
+        
+            to {
+                transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
+            }
         }
 
         input[type="text"] {
@@ -35,7 +100,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             margin: 10px;
-            width: 60%;
+            width: 96%;
         }
 
         button {
@@ -54,6 +119,7 @@
         p {
             margin: 10px 0;
         }
+        
     </style>
     </head>
     <body>
@@ -102,8 +168,9 @@
 
 
     <h1>Mental Health Chatbot</h1>
-    <div id="chatbox"></div>
-    <input type="text" id="user-input" placeholder="Type a message..." />
+
+    <div class="fancy"></div>
+    <div id="chatbox"><input type="text"  /></div>
     <button onclick="sendMessage()">Send</button>
     <button onclick="startListening()">🎤 Voice Input</button>
 </body>
