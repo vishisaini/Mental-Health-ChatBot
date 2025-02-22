@@ -1,0 +1,6 @@
+flask
+flask-cors
+nltk
+speechrecognition
+pyttsx3
+sqlite3
