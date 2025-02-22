@@ -4,6 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mental Health Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #333;
+            color: white;
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        #chatbox {
+            text-align: left;
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-height: 300px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            width: 60%;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+    </style>
+    </head>
+    <body>
     <script>
         async function sendMessage() {
             let userMessage = document.getElementById("user-input").value;
@@ -46,8 +99,8 @@
             };
         }
     </script>
-</head>
-<body>
+
+
     <h1>Mental Health Chatbot</h1>
     <div id="chatbox"></div>
     <input type="text" id="user-input" placeholder="Type a message..." />
