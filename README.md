@@ -46,9 +46,8 @@ This is a **Mental Health Chatbot** designed to provide users with a space to ex
 This project is open-source and available under the **MIT License**.
 
 Here are the glimpses of our site!
+![image](https://github.com/user-attachments/assets/0bb9fa78-2bd0-4aff-aa52-fc09e7a3f817)
 
-
-![image](https://github.com/user-attachments/assets/9f691a24-3e13-40c8-aea0-8d2537d1043a)
 
 ![image](https://github.com/user-attachments/assets/404c29e1-b2dd-4a44-bf5f-3aa61bb34fe9)
 ![image](https://github.com/user-attachments/assets/b88c92c8-ff4d-4243-8a87-e15014976ba7)
