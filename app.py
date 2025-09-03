@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, session
+import aiml
 import os
 import speech_recognition as sr
 import sqlite3
