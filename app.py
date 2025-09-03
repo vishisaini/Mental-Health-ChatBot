@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, session
-import aiml
+import mental_health.aiml
 import os
 import speech_recognition as sr
 import sqlite3
